@@ -331,8 +331,33 @@ ouput : pdf_document
         mysqladmin -u admin -p version
         ```
 
+6.  MySQL (MariaDB) Not Starting [closed]
 
+    * __ERROR__
+        if you see error this warning
 
+        ```
+        Job for mariadb.service failed because the control process exited with error code.
+        See "systemctl status mariadb.service" and "journalctl -xe" for details.
+        ```
+
+    * __Solving__
+        ```
+        cd /var/lib/mysql
+        ls
+        rm -r *
+        mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+        ```
+
+        then by adding correct package list and signature
+
+        ```
+        sudo apt-get install software-properties-common
+        sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+        sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mariadb.mirrors.ovh.net/MariaDB/repo/10.3/ubuntu bionic main'
+        sudo apt update
+        sudo apt install mariadb-server
+        ```
 
 
     
