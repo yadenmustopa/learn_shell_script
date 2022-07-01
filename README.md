@@ -133,7 +133,109 @@ ouput : pdf_document
                 sudo systemctl reboot
             ```
 
+        <br/>
+4. when you forgot password mariadb or mysql, you should reset.
+
+    * Step 1
+        stop service your mysql
+        ```
+            sudo systemctl stop mysql
+        ```
+        or
+        ```
+            sudo service mysql stop
+        ```
+        or in ubutnu & debian
+        ```
+            sudo /etc/init.d/mysql stop
+        ```
+        or for other distribution versions on CentOS, Fendora and RHEL
+        ``` 
+            sudo /etc/init.d/mysqld stop
+        ```
+
+    * Step 2
         
+        start mysql in safe mode
+
+        ```
+        sudo mysqld_safe --skip-grant-tables &
+        ```
+
+    * Step 3
+        Login into MYSQL using root
+
+        ```
+        mysql -u root;
+        ```
+
+    * Step 4
+        Select the MYSQL database to use
+
+        ```
+        use mysql
+        ```
+
+    * Step 5
+        Reset or change the password user root
+
+        5.1 MYSQL version < 5.7
+
+        ```
+        update user set password=PASSWORD("newpassword") where user='root';
+        ```
+
+        5.2 MYSQL 5.7 or other than , mysql.user table "password" field -> "authentication_string"
+
+        ```
+        update user set authentication_string=password("newpassword") where user='root'; 
+        ```
+
+    * Step 6
+        Flush the privileges, this function for reread without restarting mysql server
+
+        ```
+        flush privileges;
+        ```
+
+    * Step 7
+        Quit to mysql
+
+        ```
+        quit
+        ```
+
+    * Step 8
+        Stop and start the server again
+
+        8.1 For Ubuntu & Debian
+
+        ```
+        sudo /etc/init.d/mysql stop
+        sudo /etc/init.d/mysql start
+        ```
+       
+        8.2 For CentOS, Fendora, and RHEL
+
+        ```
+        sudo /etc/init.d/mysqld stop
+        sudo /etc/init.d/mysqld start
+        ```
+
+    * Step 9
+        Login With a new password
+
+        ```
+        mysql -u root -p
+        ```
+
+    * Step 10
+        Type the new password and enjoy your server again like nothing happend
+       
+
+
+
+
 
 
 
