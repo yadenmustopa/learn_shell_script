@@ -358,14 +358,58 @@ ouput : pdf_document
         sudo apt update
         sudo apt install mariadb-server
         ```
+        
 
+7. Solving the “Too many levels of symbolic links” Error Or Forbidden( 403 ) when access file in /var/www
 
-    
+    * __solving__
+        straight to solving :
+            when symlink use to /var/www
+            ```
+            ln -s dir_source /var/www
+            ```
+        it not open or access this dir_source in /var/www because permittion
 
+        You Can fix this issue with change mode to user or root permition
+        ```
+        sudo chmod 755 -R /var/www/dir_source
+        ```
+        and then change owner to www-data because should www-data permition in /var/www
+        ```
+        sudo chown www-data:www-data /var/www/dir_source
+        ```
 
+8. When create Virtual Host in Nginx ( Virtual Block ) not working 127.0.0.1:8081 in /etc/hosts
+    <br/>
+    * __error__
+    Most web developers have adopted the practice to test locally using, for example, port 8080 or anoter port. One might wonder we can also accomplish this with /etc/hosts. For example, can we add the following line to the hosts file:
+        ```
+        127.0.0.1:8081       yourdomain.example.com
+        ```
+    unfortunatelly it can't ,The hosts file only deals with hostnames , not ports.
 
+    <br/>
 
+    * __Solving__
+    To make work it , we can use a reverse proxy. A reverse proxy is typically a webserver like nginx.
+    thats takes client requests and directs them to the appropriate backend server, These Backend servers can run on a different host and, more interesting to use a different port.
 
+    Let’s take a look at how to configure this with Nginx. We can easily install nginx from our package manager like yum or apt-get. Its default installation folder is /etc/nginx.
 
+    To configure a reverse proxy for baeldung.com, we add the following in a file called /etc/nginx/conf.d/baeldung.conf:
+    ```
+        server {
+            listen 80;
 
+            server_name baeldung.com;
 
+            location / {
+                proxy_pass http://127.0.0.1:8080/;
+            }
+        }
+    ```
+    When we use this config in /etc/hosts together with:
+
+    127.0.0.1 yourdomain.example.com
+
+    in /etc/hosts, nginx will receive our requests for yourdomain.example.com and direct those to the webserver running on 127.0.0.1:8080.
