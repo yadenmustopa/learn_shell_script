@@ -177,6 +177,7 @@ ouput : pdf_document
         ```
 
     * Step 5
+
         Reset or change the password user root
 
         5.1 MYSQL version < 5.7
@@ -192,6 +193,7 @@ ouput : pdf_document
         ```
 
     * Step 6
+
         Flush the privileges, this function for reread without restarting mysql server
 
         ```
@@ -232,8 +234,102 @@ ouput : pdf_document
     * Step 10
         Type the new password and enjoy your server again like nothing happend
        
+5. if you want to create another user for access mariadb
+
+    * Step 1
+
+        Login to Mysql using root
+
+        ```
+        mariadb -u root -p
+        ```
+        make sure your typing correct password 
+
+    * Step 2
+        create new user 
+
+        ```
+        GRANT ALL ON *.* TO 'newuser'@'host/localhost' IDENTIFIED BY 'yourpassword' WITH GRANT OPTION;
+        ```
+
+    * Step 3
+        flush privileges for recheck all without restarting mysql server
 
 
+        ```
+        flush privileges
+        ```
+
+    * Step 4
+    
+        ```
+        quit
+        ```
+
+    * Step 5
+        When installed from the default repositories, MariaDB will start running automatically. To test this, check its status.
+
+            ```
+            sudo systemctl status mariadb
+            ```
+
+        then , You’ll receive output that is similar to the following:
+            ```
+
+            Output :
+
+            ● mariadb.service - MariaDB 10.3.22 database server
+            Loaded: loaded (/lib/systemd/system/mariadb.service; enabled; vendor preset: enabled)
+            Active: active (running) since Tue 2020-05-12 13:38:18 UTC; 3min 55s ago
+            Docs: man:mysqld(8)
+                    https://mariadb.com/kb/en/library/systemd/
+            Main PID: 25914 (mysqld)
+                Status: "Taking your SQL requests now..."
+                Tasks: 31 (limit: 2345)
+                Memory: 65.6M
+                CGroup: /system.slice/mariadb.service
+                        └─25914 /usr/sbin/mysqld
+                ```
+
+        If MariaDB isn’t running, you can start it with the command 
+
+        ```
+        sudo systemctl start mariadb.
+        ```
+
+    <br/>
+    * Step 6
+
+    For an additional check, you can try connecting to the database using the mysqladmin tool, which is a client that lets you run administrative commands. For example, this command says to connect to MariaDB as root using the Unix socket and return the version:
+
+
+        ```
+        sudo mysqladmin version
+        ```
+
+        you will receive output similiar to this
+
+        ```
+        Output
+        mysqladmin  Ver 9.1 Distrib 10.3.22-MariaDB, for debian-linux-gnu on x86_64
+        Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+        Server version		10.3.22-MariaDB-1ubuntu1
+        Protocol version	10
+        Connection		Localhost via UNIX socket
+        UNIX socket		/var/run/mysqld/mysqld.sock
+        Uptime:			4 min 49 sec
+
+        Threads: 7  Questions: 467  Slow queries: 0  Opens: 177  Flush tables: 1  Open tables: 31  Queries per second avg: 1.615
+        ```
+
+    * Step 7
+
+        if you configured a separated administrative user with password authentication , you could perform the same opration by typing 
+
+        ```
+        mysqladmin -u admin -p version
+        ```
 
 
 
