@@ -413,3 +413,34 @@ ouput : pdf_document
     127.0.0.1 yourdomain.example.com
 
     in /etc/hosts, nginx will receive our requests for yourdomain.example.com and direct those to the webserver running on 127.0.0.1:8080.
+
+
+    9. When you want to swith php version in ubuntu
+
+        * check your php version
+
+            ```
+                php -v
+            ```
+
+        * install php version you want.Example to version8.1
+            ```
+                $ sudo add-apt-repository -y ppa:ondrej/php
+                $ sudo apt update
+                $ sudo apt install php8.1
+            ```
+
+        * you can disabled old version php use
+            ```
+                sudo a2dismod your_old_php_version
+            ```
+
+        * you can enabled new version php use
+            ```
+                sudo a2enmod php5.6
+            ```
+        
+        * Or you can swicth use:
+            ```
+                sudo update-alternatives --config php
+            ```
