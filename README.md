@@ -444,3 +444,25 @@ ouput : pdf_document
             ```
                 sudo update-alternatives --config php
             ```
+    10. when you want to copy pub ssh key in ubuntu
+        * make sure you has install and setting pbcopy & pb paste to make your job easier.
+
+            a. install x-clip 
+                ```
+                    sudo apt-get install x-clip -y
+                ```
+
+            b. edit your BASH settings file using your favorite text editor, example using nano
+                ```
+                    nano ~/.bashrc
+                ```
+            c. then create an alias for pbcopy and pbpaste
+                ```
+                    alias pbcopy = 'xclip -selection clipboard'
+                    alias pbpaste = 'xclip -selection clipboard -o'
+                ```
+        
+        * and finally you can copy your ssh public file.
+            ```
+                cat ~/.ssh/id_rsa.pub | pbcopy
+            ```
