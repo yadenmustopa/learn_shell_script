@@ -458,11 +458,17 @@ ouput : pdf_document
                 ```
             c. then create an alias for pbcopy and pbpaste
                 ```
-                    alias pbcopy = 'xclip -selection clipboard'
-                    alias pbpaste = 'xclip -selection clipboard -o'
+                    alias pbcopy='xclip -selection clipboard'
+                    alias pbpaste='xclip -selection clipboard -o'
                 ```
         
         * and finally you can copy your ssh public file.
             ```
                 cat ~/.ssh/id_rsa.pub | pbcopy
             ```
+
+    11. if net::ERR_ABORTED 504 (Gateway Timeout) vite svelte
+
+        ```
+            node ./node_modules/esbuild/install.js
+        ```
