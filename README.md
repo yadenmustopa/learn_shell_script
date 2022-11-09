@@ -472,3 +472,16 @@ ouput : pdf_document
         ```
             node ./node_modules/esbuild/install.js
         ```
+
+    12. Solving error Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". laravel
+
+        * Solving by :
+
+        [SOlving Source](https://stackoverflow.com/questions/72846653/your-composer-dependencies-require-a-php-version-8-1-0)
+
+        * remove and reinstall composer/vendor
+        ```
+        composer update --dry-run --ignore-platform-reqs
+        ```
+
+
