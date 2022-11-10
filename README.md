@@ -484,4 +484,53 @@ ouput : pdf_document
         composer update --dry-run --ignore-platform-reqs
         ```
 
+    13. use many ssh in same machine
 
+    * Solution - Add another public key on the same machine and use that with 'personal' gitlab account (both on same machine).
+
+        navigate to .ssh folder in your profile (even works on windows) and run command
+        ```
+            ssh-keygen -t rsa
+        ```
+        when asked for file name give another filename id_rsa_2 (or any other). enter for no passphrase (or otherwise). You will end up making id_rsa_2 and id_rsa_2.pub
+
+        use the command
+        ```
+        cat id_rsa_2.pub
+        ```
+        copy and save key in 'personal' Gitlab account.
+
+        create a file with no extension in .ssh folder named 'config'
+
+        put this block of configuration in your config file
+        ```
+            Host           gitlab.com
+            HostName       gitlab.com
+            IdentityFile   C:\Users\<user name>\.ssh\id_rsa
+            User           <user name>
+
+
+            Host           gitlab_2
+            HostName       gitlab.com
+            IdentityFile   C:\Users\<user name>\.ssh\id_rsa_2
+            User           <user name>
+        ```
+
+        now whenever you want to use 'personal' gitlab account simply change alias in git URLs for action to remote servers.
+
+        for example instead of using
+
+        ```
+        `git clone git@gitlab.com:..............
+        ```
+        simply use
+
+        ```
+            git clone git@gitlab_2:...............
+        ```
+        doing that would use the second configuration with gitlab.com (from 'config' file) and will use the new id_rsa_2 key pair for authentication.
+
+        Find more about above commands on this link
+        [go to link](https://clubmate.fi/how-to-setup-and-manage-multiple-ssh-keys/)
+
+        [ source ](https://stackoverflow.com/questions/23537881/fingerprint-has-already-been-taken-gitlab)
