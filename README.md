@@ -477,7 +477,7 @@ ouput : pdf_document
 
         * Solving by :
 
-        [SOlving Source](https://stackoverflow.com/questions/72846653/your-composer-dependencies-require-a-php-version-8-1-0)
+        [Solving Source](https://stackoverflow.com/questions/72846653/your-composer-dependencies-require-a-php-version-8-1-0)
 
         * remove and reinstall composer/vendor
         ```
@@ -534,3 +534,65 @@ ouput : pdf_document
         [go to link](https://clubmate.fi/how-to-setup-and-manage-multiple-ssh-keys/)
 
         [ source ](https://stackoverflow.com/questions/23537881/fingerprint-has-already-been-taken-gitlab)
+
+
+    14. Install PHP and enable JIT for 
+
+    * install PHP and Extension
+    ```
+    apt-get install nginx php php-fpm php-cli php-opcache php-mysql php-zip php-gd php-mbstring php-curl php-xml -y
+    ```
+
+
+    * enable opcache in php.ini
+    open php.ini
+    ```
+    nano /etc/php/7.4/fpm/php.ini
+    ```
+    or 
+    ```
+    nano /etc/php/8.1/fpm/php.ini
+    ```
+
+    > The folder path may be different depending on the php version installed.
+
+    * uncomment the following lines
+    ```
+    opcache.enable=1
+    opcache.memory_consumption=128
+    opcache.max_accelerated_files=10000
+    opcache.revalidate_freq=200
+    ```
+
+    * and then you should be restart apache or nginx,
+    ```
+    systemctl restart nginx php7.4-fpm
+    ```
+    or if use apache
+    ```
+    systemctl restart apache2
+    ```
+
+
+    * You can now verify the PHP OPcache installation with the following command:
+
+    ```
+    php -i | grep opcache
+    ```
+    and you should get the following outpu:
+    ```
+    /etc/php/7.4/cli/conf.d/10-opcache.ini,
+    opcache.blacklist_filename => no value => no value
+    opcache.consistency_checks => 0 => 0
+    opcache.dups_fix => Off => Off
+    opcache.enable => On => On
+    opcache.enable_cli => Off => Off
+    opcache.enable_file_override => Off => Off
+    opcache.error_log => no value => no value
+    opcache.file_cache => no value => no value
+    opcache.file_cache_consistency_checks => 1 => 1
+    opcache.file_cache_only => 0 => 0
+    opcache.file_update_protection => 2 => 2
+    opcache.force_restart_timeout => 180 => 180
+    ```
+
