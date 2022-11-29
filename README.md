@@ -596,3 +596,7 @@ ouput : pdf_document
     opcache.force_restart_timeout => 180 => 180
     ```
 
+    15. check all php in folder or subfolder
+    ```
+    find . -iname '*.php' -exec php -l '{}' \; | grep '^No syntax errors' -v  | less
+    ```
