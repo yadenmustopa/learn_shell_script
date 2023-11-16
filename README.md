@@ -99,7 +99,18 @@ ouput : pdf_document
         ```
         [more info](https://help.github.com/articles/testing-your-ssh-connection/ "Setting ssh connection in github")
 
-3. Problem when issue write export PATH
+    ## If You want move ssh file in another device
+        1. create ssh
+        2. copy file to ~/.ssh
+        3. change mode and owner
+        4 ```shell
+               sudo chown -R $USER ~/.ssh
+               sudo chmod 700 ~/.ssh
+               sudo chmod 600 ~/.ssh/
+               find /Users/yadenmustopa/.ssh -type f -exec chmod 600 {} \;
+            ```
+
+4. Problem when issue write export PATH
 
     at the time my friend test laravel in ubuntu OS,, after setting variable environtment PATH and then he failure writte PATH and become error for ubuntu system and not loggin with KDE.
 
@@ -134,7 +145,7 @@ ouput : pdf_document
             ```
 
         <br/>
-4. when you forgot password mariadb or mysql, you should reset.
+5. when you forgot password mariadb or mysql, you should reset.
 
     * Step 1
         stop service your mysql
@@ -234,7 +245,7 @@ ouput : pdf_document
     * Step 10
         Type the new password and enjoy your server again like nothing happend
        
-5. if you want to create another user for access mariadb
+6. if you want to create another user for access mariadb
 
     * Step 1
 
@@ -331,7 +342,7 @@ ouput : pdf_document
         mysqladmin -u admin -p version
         ```
 
-6.  MySQL (MariaDB) Not Starting [closed]
+7.  MySQL (MariaDB) Not Starting [closed]
 
     * __ERROR__
         if you see error this warning
@@ -360,7 +371,7 @@ ouput : pdf_document
         ```
         
 
-7. Solving the “Too many levels of symbolic links” Error Or Forbidden( 403 ) when access file in /var/www
+8. Solving the “Too many levels of symbolic links” Error Or Forbidden( 403 ) when access file in /var/www
 
     * __solving__
         straight to solving :
@@ -379,7 +390,7 @@ ouput : pdf_document
         sudo chown www-data:www-data /var/www/dir_source
         ```
 
-8. When create Virtual Host in Nginx ( Virtual Block ) not working 127.0.0.1:8081 in /etc/hosts
+9. When create Virtual Host in Nginx ( Virtual Block ) not working 127.0.0.1:8081 in /etc/hosts
     <br/>
     * __error__
     Most web developers have adopted the practice to test locally using, for example, port 8080 or anoter port. One might wonder we can also accomplish this with /etc/hosts. For example, can we add the following line to the hosts file:
