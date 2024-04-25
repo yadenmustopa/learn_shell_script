@@ -426,7 +426,7 @@ ouput : pdf_document
     in /etc/hosts, nginx will receive our requests for yourdomain.example.com and direct those to the webserver running on 127.0.0.1:8080.
 
 
-    9. When you want to swith php version in ubuntu
+10. When you want to swith php version in ubuntu
 
         * check your php version
 
@@ -455,7 +455,7 @@ ouput : pdf_document
             ```
                 sudo update-alternatives --config php
             ```
-    10. when you want to copy pub ssh key in ubuntu
+11. when you want to copy pub ssh key in ubuntu
         * make sure you has install and setting pbcopy & pb paste to make your job easier.
 
             a. install x-clip 
@@ -478,13 +478,13 @@ ouput : pdf_document
                 cat ~/.ssh/id_rsa.pub | pbcopy
             ```
 
-    11. if net::ERR_ABORTED 504 (Gateway Timeout) vite svelte
+12. if net::ERR_ABORTED 504 (Gateway Timeout) vite svelte
 
         ```
             node ./node_modules/esbuild/install.js
         ```
 
-    12. Solving error Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". laravel
+13. Solving error Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.1.0". laravel
 
         * Solving by :
 
@@ -495,7 +495,7 @@ ouput : pdf_document
         composer update --dry-run --ignore-platform-reqs
         ```
 
-    13. use many ssh in same machine
+14. use many ssh in same machine
 
     * Solution - Add another public key on the same machine and use that with 'personal' gitlab account (both on same machine).
 
@@ -547,7 +547,7 @@ ouput : pdf_document
         [ source ](https://stackoverflow.com/questions/23537881/fingerprint-has-already-been-taken-gitlab)
 
 
-    14. Install PHP and enable JIT for 
+15. Install PHP and enable JIT for 
 
     * install PHP and Extension
     ```
@@ -607,7 +607,47 @@ ouput : pdf_document
     opcache.force_restart_timeout => 180 => 180
     ```
 
-    15. check all php in folder or subfolder
+16. check all php in folder or subfolder
     ```
     find . -iname '*.php' -exec php -l '{}' \; | grep '^No syntax errors' -v  | less
     ```
+
+
+## Youtube Downloader With Commands for Member Only
+
+> **__NOTES__** : 
+### Reference : 
+    1. https://daveparrish.net/posts/2018-06-22-How-to-download-private-YouTube-videos-with-youtube-dl.html
+    2. https://stackoverflow.com/questions/32104702/youtube-dl-library-and-error-403-forbidden-when-using-generated-direct-link-by
+    3. https://www.youtube.com/watch?v=Ghe058HpmMk
+
+### INSTALLATION
+1. Install youtube-dl 
+> https://snapcraft.io/youtube-dl
+
+2. install extension EditThisCookie in Google Chrome
+3. Open EditThisCookie -> options -> change choose the prefered export to [Netscape HTTP Cookie File]
+4. Open and play yutube that will be downloaded, make sure you are logged in as a member.
+5. Open EditThisCookie -> export -> Copy to clipboard
+6. Open texteditor -> paste to text editor -> save with cookie_ty.txt
+7. parsing cookie file
+    ```shell
+        curl -b cookie_ty.txt --cookie-jar yd.txt 'https://youtube.com'
+    ```
+8. youtube-dl --cookies=yd.txt [https://youtu.be/Q-xxxx-xxxx] //yutube that will be downloaded
+
+### PROBLEM AND FIXING
+1. Problem Fix for youtube-dl Unable to extract uploader id
+> Solving : comment in line 1794 and save again 
+> run outube-dl --cookies=yd.txt [https://youtu.be/Q-xxxx-xxxx] -v
+> open file extractor/youtube.py
+```python
+   # 'uploader_id': self._search_regex(r'/(?:channel|user)/([^/?&#]+)', owner_profile_url, 'uploader id') if owner_profile_url else None,
+```
+> see : https://www.youtube.com/watch?v=Ghe058HpmMk
+
+2. Youtube-dl library and ERROR 403: Forbidden when using generated direct link by youtube-dl from different locations
+> Solving : Remove cache
+```shell
+youtube-dl --rm-cache-dir
+```
