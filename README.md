@@ -611,7 +611,22 @@ ouput : pdf_document
     ```
     find . -iname '*.php' -exec php -l '{}' \; | grep '^No syntax errors' -v  | less
     ```
-
+17. Certbot Certificate
+- Create Virtual host in to /etc/sites-available/domain.conf
+- Binding to sites-enabled
+```shell
+sudo ln -s /etc/nginx/sites-available/domain.conf /etc/nginx/sites-enabled/
+sudo nginx -t 
+sudo systemctl restart nginx
+```
+- Install Certbot Package
+```shell
+sudo apt update
+sudo apt install certbot
+sudo apt install python3-certbot-apache
+sudo certbot --nginx -d domain.com
+sudo certbot renew --dry-run
+```
 
 ## Youtube Downloader With Commands for Member Only
 
