@@ -628,6 +628,23 @@ sudo certbot --nginx -d domain.com
 sudo certbot renew --dry-run
 ```
 
+18. Error acpu extension in mac
+If there error Root composer.json requires PHP extension ext-apcu * but it is missing from your system. Install or enable PHP's apcu extension.
+> Solving :
+> 1. Install Extension apcu
+> in Herd
+> ```
+> pecl install apcu
+> ```
+>  **_NOTES_** : if there error pcre2.h: No such file or directory
+> Solving :
+> ```
+> brew install pcre2
+> ln -s /opt/homebrew/opt/pcre2/include/pcre2.h /opt/homebrew/opt/php@8.1/include/php/ext/pcre/
+> ```
+> Beware of the PHP version in the destination, adjust as-needed. Then, re-run the installation that failed, e.g. apcu or openswoole.
+> try again to install apcu
+
 ## Youtube Downloader With Commands for Member Only
 
 > **__NOTES__** : 
